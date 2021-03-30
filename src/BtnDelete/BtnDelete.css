@@ -1,0 +1,11 @@
+.BtnDelete {
+    border: none;
+    background-color: hsl(235, 24%, 19%);
+    outline: inherit;
+    cursor: pointer;
+    padding-right: 25px;
+}
+
+li:first-child .BtnDelete {
+    border-top-right-radius: 5px;
+}

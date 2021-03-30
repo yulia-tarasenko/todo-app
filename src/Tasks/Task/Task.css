@@ -1,0 +1,35 @@
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.TaskContainer {
+    display: flex;
+    border-bottom: 1px solid  hsl(237, 14%, 26%);
+}
+
+.Task {
+    padding: 22px 20px;
+    padding-left: 0px;
+    background-color: hsl(235, 24%, 19%);
+    width: 100%; 
+}
+
+.TaskContainer .BtnTask {
+    border-radius: 0px;
+}
+
+li:first-child .BtnTask {
+    border-top-left-radius: 5px;
+}
+
+.Task:hover {
+    color: hsl(236, 33%, 92%);
+    cursor: pointer;
+}
+
+.TaskDone {
+    color: hsl(233, 14%, 35%);
+    text-decoration: line-through;
+}

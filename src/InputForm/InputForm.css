@@ -1,0 +1,23 @@
+.FormContainer {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.InputForm {
+    background-color: hsl(235, 24%, 19%);
+    padding: 22px 20px;
+    padding-left: 0;
+    outline: none;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 100%;
+    font-size: 17px;
+    color: hsl(234, 39%, 85%);
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.InputFormDone {
+    color: hsl(233, 14%, 35%);
+    text-decoration: line-through;
+}

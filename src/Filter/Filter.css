@@ -1,0 +1,32 @@
+.FilterContainer {
+    padding: 20px 20px 20px 25px;
+    background-color: hsl(235, 24%, 19%);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: hsl(233, 14%, 35%);
+}
+
+.Filter {
+    display: flex;
+}
+
+.Filter .BtnFilter:not(:last-child) {
+    padding-right: 20px;
+}
+
+.BtnFilter.active {
+    color: hsl(220, 98%, 61%);
+}
+
+.BtnFilter {
+    border: none;
+    background: none;
+    outline: inherit;
+    cursor: pointer;
+    color: hsl(233, 14%, 35%);
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 0;
+}
