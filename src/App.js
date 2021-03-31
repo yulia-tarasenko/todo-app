@@ -61,7 +61,8 @@ class App extends Component {
     event.preventDefault();
     axios.post('https://todo-app-7c377-default-rtdb.firebaseio.com/todo.json', {
       isDone: this.state.form.isDone,
-      value: this.state.form.value
+      value: this.state.form.value,
+      num: Object.values(this.state.tasks).length + 1
     })
     .then(response => {
       console.log(response);
@@ -164,12 +165,60 @@ class App extends Component {
     this.setState({tasks: updatedTasks, loading: false});
   };
 
+  onDragEndHandler = (result) => {
+    console.log(result);
+    let newOrderTasks = {};
+    for(let taskKey in this.state.tasks){
+      newOrderTasks[taskKey] = {...this.state.tasks[taskKey]}
+    }
+    // for(let taskKey in this.state.tasks) {
+    //   if(this.state.tasks[taskKey].num === result.destination.index){
+    //     newOrderTasks[taskKey].num = result.source.index;
+    //     axios.patch(`https://todo-app-7c377-default-rtdb.firebaseio.com/todo/${taskKey}.json`, {
+    //       num: result.source.index
+    //     });
+    //   }
+    // }
+    // console.log(newOrderTasks);
+    console.log(result.destination.index);
+    // console.log(this.state.tasks[result.draggableId].num);
+    newOrderTasks[result.draggableId].num = result.destination.index;
+    axios.patch(`https://todo-app-7c377-default-rtdb.firebaseio.com/todo/${result.draggableId}.json`, {
+      num: result.destination.index
+    });
+      // console.log(this.state.tasks);
+      // console.log(this.state.tasks[result.draggableId].num);
+      if (result.destination.index < this.state.tasks[result.draggableId].num) {
+        for(let taskKey in this.state.tasks) {
+          if(this.state.tasks[taskKey].num >= result.destination.index &
+            taskKey !== result.draggableId){
+            newOrderTasks[taskKey].num = newOrderTasks[taskKey].num + 1;
+            axios.patch(`https://todo-app-7c377-default-rtdb.firebaseio.com/todo/${taskKey}.json`, {
+              num: newOrderTasks[taskKey].num
+            });
+          }
+        }
+      } else if (result.destination.index > this.state.tasks[result.draggableId].num) {
+        for(let taskKey in this.state.tasks) {
+          if(this.state.tasks[taskKey].num <= result.destination.index &
+            taskKey !== result.draggableId){
+            newOrderTasks[taskKey].num = newOrderTasks[taskKey].num - 1;
+            axios.patch(`https://todo-app-7c377-default-rtdb.firebaseio.com/todo/${taskKey}.json`, {
+              num: newOrderTasks[taskKey].num
+            });
+          }
+        }
+      }
+      this.setState({tasks: newOrderTasks});
+  };
+
   render () {
     let main = (
       <React.Fragment>
           <Tasks tasks={this.state.tasks}
           clicked={this.taskClickedHandler}
-          delete={this.deleteTaskHandler}/>
+          delete={this.deleteTaskHandler}
+          onDrag={this.onDragEndHandler}/>
           <Filter tasks={this.state.tasks}
           filterName={this.state.currentFilter}
           filterCompleted={this.filterCompletedHandler}
@@ -191,6 +240,7 @@ class App extends Component {
             setValue={this.setFormValueHandler}
             submit={this.formSubmitHandler}/>
           {main}
+          <p style={{'textAlign':'center'}}>Drag and Drop to reorder list</p>
         </div>
       </div>
     );

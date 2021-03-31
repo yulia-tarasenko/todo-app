@@ -7,7 +7,7 @@ const header = (props) => {
     return (
         <div className="Header">
             <Logo/>
-            <BtnChangeMode/>
+            {/* <BtnChangeMode/> */}
         </div>
     );
 }
